@@ -1,11 +1,13 @@
 <template>
-  <div class="container">
-    <div class="form-container">
-      <header class="form-header">
-        <h3 class="form-title">{{ title }}</h3>
-      </header>
+  <transition name="fade">
+    <div v-if="$props.open" class="container" data-testid="modal-container">
+      <div class="form-container" data-testid="modal-form-container">
+        <header class="form-header" data-testid="modal-form-header">
+          <h3 class="form-title" data-testid="modal-form-title">{{ title }}</h3>
+        </header>
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
@@ -15,6 +17,7 @@ import { Contact } from '@/models';
 
 export interface ContactFormProps {
   defaultValues?: Contact;
+  open?: boolean;
 }
 
 const props = withDefaults(defineProps<ContactFormProps>(), {});
@@ -70,5 +73,15 @@ export default {
   color: var(--dark);
   font-weight: 400;
   margin: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

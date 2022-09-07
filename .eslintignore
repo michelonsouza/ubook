@@ -8,3 +8,4 @@ src/__tests__/**
 *.png
 *.otf
 *.gql
+*.css
