@@ -1,10 +1,21 @@
 <template>
   <transition name="fade">
-    <div v-if="$props.open" class="container" data-testid="modal-container">
-      <div class="form-container" data-testid="modal-form-container">
+    <div
+      v-if="$props.open"
+      role="presentation"
+      class="container"
+      data-testid="modal-container"
+      @click="$emit('close')"
+    >
+      <div
+        class="form-container"
+        data-testid="modal-form-container"
+        @click.prevent="preventsPropagation"
+      >
         <header class="form-header" data-testid="modal-form-header">
           <h3 class="form-title" data-testid="modal-form-title">{{ title }}</h3>
         </header>
+        <form></form>
       </div>
     </div>
   </transition>
@@ -20,11 +31,19 @@ export interface ContactFormProps {
   open?: boolean;
 }
 
+export type EmitsType = { (event: 'close'): void };
+
 const props = withDefaults(defineProps<ContactFormProps>(), {});
+defineEmits<EmitsType>();
+
 const title = computed(
-  () => `${props.defaultValues ? 'Editar' : 'Adicionar'} contato`,
+  () => `${props.defaultValues ? 'Editar' : 'Criar novo'} contato`,
 );
 defineExpose(props);
+
+function preventsPropagation(event: MouseEvent): void {
+  event.stopPropagation();
+}
 </script>
 
 <script lang="ts">
@@ -59,6 +78,14 @@ export default {
   background-color: var(--white-two);
   display: flex;
   flex-direction: column;
+
+  & > form {
+    width: 100%;
+    padding: 1.3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
 }
 
 .form-header {

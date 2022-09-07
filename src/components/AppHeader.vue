@@ -1,5 +1,5 @@
 <template>
-  <contact-form-modal />
+  <contact-form-modal :open="open" @close="open = false" />
   <header data-testid="app-header" class="header-container">
     <img
       data-testid="ubook-logo"
@@ -7,7 +7,7 @@
       alt="Ubook Logo"
     />
     <div class="action-container">
-      <create-button @click="$emit('create-contact')" />
+      <create-button @click="open = true" />
       <search-text-input
         placeholder="Buscar..."
         @search="handleSearchContact"
@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
 import { CreateButton, SearchTextInput, ContactFormModal } from '@/components';
 
 export interface AppHeaderProps {
@@ -31,10 +33,25 @@ export type EmitTypes = {
 };
 
 const emits = defineEmits<EmitTypes>();
+const open = ref<boolean>(false);
+
+function closeOnEsc(event: KeyboardEvent): void {
+  if (event.key === 'Escape') {
+    open.value = false;
+  }
+}
 
 function handleSearchContact(value?: string): void {
   emits('search-contact', value);
 }
+
+onMounted(() => {
+  window.addEventListener('keydown', closeOnEsc);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', closeOnEsc);
+});
 </script>
 
 <script lang="ts">

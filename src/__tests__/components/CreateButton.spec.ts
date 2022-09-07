@@ -1,7 +1,7 @@
-import { mount,  } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import faker from 'faker';
 
-import CreateButton from '@/components/CreateButton.vue';
+import CreateButton from './src/components/CreateButton.vue';
 
 describe('CreateButton test suit', () => {
   it('should component to be render', () => {
