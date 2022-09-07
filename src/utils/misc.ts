@@ -11,7 +11,7 @@ const colors = [
 
 export function generateRandomColor(): string {
   const index = Math.floor(Math.random() * colors.length);
-  const color = colors[index] || colors[0];
+  const color = colors[index];
 
   return color;
 }
