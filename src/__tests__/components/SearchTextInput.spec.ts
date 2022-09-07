@@ -1,7 +1,7 @@
-import { mount,  } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import faker from 'faker';
 
-import SearchTextInput from '@/components/SearchTextInput.vue';
+import { SearchTextInput } from '@/components';
 
 describe('SearchTextInput test suit', () => {
   it('should component to be render', () => {
@@ -15,7 +15,7 @@ describe('SearchTextInput test suit', () => {
     const sut = mount<any>(SearchTextInput, {
       props: {
         placeholder,
-      }
+      },
     });
 
     const inputElement = sut.get('input');
@@ -41,7 +41,7 @@ describe('SearchTextInput test suit', () => {
     const sut = mount<any>(SearchTextInput, {
       props: {
         searchOnClick: false,
-      }
+      },
     });
 
     const searchButton = sut.get('button');
@@ -58,7 +58,7 @@ describe('SearchTextInput test suit', () => {
     const sut = mount<any>(SearchTextInput, {
       props: {
         clearAfterSearch: true,
-      }
+      },
     });
 
     const searchButton = sut.get('button');
@@ -76,7 +76,7 @@ describe('SearchTextInput test suit', () => {
   });
 
   it('should import SearchTextInput asyncronous dynamic imports', async () => {
-    const name = 'SearchTextInput'
+    const name = 'SearchTextInput';
     const sut = await import(`@/components/${name}.vue`);
     expect(sut).toBeDefined();
   });

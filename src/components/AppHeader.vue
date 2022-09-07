@@ -20,9 +20,6 @@
 import { CreateButton, SearchTextInput } from '@/components';
 
 export interface AppHeaderProps {
-  clearAfterSearch?: boolean;
-  searchOnClick?: boolean;
-  placeholder?: string;
   value?: string;
   showCreateButton?: boolean;
 }
