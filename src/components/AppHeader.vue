@@ -9,6 +9,7 @@
       <create-button v-if="showCreateButton" @click="$emit('create-contact')" />
       <search-text-input
         placeholder="Buscar..."
+        :value="value"
         @search="handleSearchContact"
       />
     </div>

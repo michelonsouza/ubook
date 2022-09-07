@@ -11,6 +11,8 @@
         v-for="contact in value"
         :key="contact.id"
         :contact="contact"
+        @edit-contact="$emit('edit-contact', contact)"
+        @delete-contact="$emit('delete-contact', contact)"
       />
     </table>
   </div>

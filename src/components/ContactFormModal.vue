@@ -82,7 +82,7 @@ export interface ContactFormProps {
 
 export type EmitsType = {
   (event: 'close'): void;
-  (event: 'submit-form', value: Partial<Contact>): void;
+  (event: 'submit-form', value: Contact): void;
 };
 
 // exposes `v-maska` directive
@@ -90,7 +90,7 @@ const vMaska = maska;
 
 const mask = ['(##) ####-####', '(##) #####-####'];
 
-const props = withDefaults(defineProps<ContactFormProps>(), {});
+const props = defineProps<ContactFormProps>();
 const emit = defineEmits<EmitsType>();
 
 const title = computed(
@@ -102,11 +102,13 @@ function onSubmit(data: Partial<Contact>): void {
   const id = props?.defaultValues?.id || uuid();
   const avatarColor =
     props?.defaultValues?.avatarColor || generateRandomColor();
-  const formatedData = {
+  const createdAt = props?.defaultValues?.createdAt || new Date().toISOString();
+  const formatedData: Contact = {
     ...(props?.defaultValues || {}),
     ...data,
     id,
     avatarColor,
+    createdAt,
   };
   emit('submit-form', formatedData);
 }
