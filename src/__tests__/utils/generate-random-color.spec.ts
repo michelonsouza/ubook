@@ -1,5 +1,3 @@
-import { EncryptStorage } from 'encrypt-storage';
-
 import { generateRandomColor } from '@/utils';
 
 const colorRegex = /#[A-za-z0-9]{6}/;
