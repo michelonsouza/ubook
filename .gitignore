@@ -17,6 +17,7 @@ coverage
 .vscode/*
 !.vscode/extensions.json
 .idea
+.eslintcache
 .DS_Store
 .env
 *.suo
