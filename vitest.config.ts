@@ -15,6 +15,7 @@ export default defineConfig({
     environment: 'jsdom',
     coverage: {
       reporter: ['lcov', 'clover', 'json'],
+      exclude: ['src/validators/*', 'src/mocks/*', 'src/__tests__/*'],
     },
   },
   resolve: {
