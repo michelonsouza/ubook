@@ -69,4 +69,15 @@ describe('TextInput test suit', () => {
 
     expect(inputElement.element.value).toEqual('');
   });
+
+  it('should import TextInput asyncronous imports', async () => {
+    const sut = await import('@/components/TextInput.vue');
+    expect(sut).toBeDefined();
+  });
+
+  it('should import TextInput asyncronous dynamic imports', async () => {
+    const name = 'TextInput'
+    const sut = await import(`@/components/${name}.vue`);
+    expect(sut).toBeDefined();
+  });
 });
