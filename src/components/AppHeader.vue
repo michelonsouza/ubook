@@ -16,8 +16,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount } from 'vue';
-
 import { CreateButton, SearchTextInput } from '@/components';
 
 export interface AppHeaderProps {
@@ -35,23 +33,9 @@ export type EmitTypes = {
 const emits = defineEmits<EmitTypes>();
 defineProps<AppHeaderProps>();
 
-function closeOnEsc(event: KeyboardEvent): void {
-  if (event.key === 'Escape') {
-    emits('create-contact');
-  }
-}
-
 function handleSearchContact(value?: string): void {
   emits('search-contact', value);
 }
-
-onMounted(() => {
-  window.addEventListener('keydown', closeOnEsc);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('keydown', closeOnEsc);
-});
 </script>
 
 <script lang="ts">
