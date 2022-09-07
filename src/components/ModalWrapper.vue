@@ -11,13 +11,13 @@
         class="modal-content-container"
         data-testid="modal-content-container"
       >
-        <slot name="header">
+        <slot v-if="showHeader" name="header">
           <header class="modal-header" data-testid="modal-header">
             <h3 class="modal-title" data-testid="modal-title">{{ title }}</h3>
           </header>
         </slot>
         <slot :open="open" :close-modal="onModalClose" />
-        <div v-if="showSlot" class="modal-footer">
+        <div v-if="showFooter" class="modal-footer">
           <slot name="footer" />
         </div>
       </div>
@@ -34,7 +34,7 @@ export interface ClickEvent extends MouseEvent {
 
 export interface ModalProps {
   open?: boolean;
-  title: string;
+  title?: string;
 }
 
 export type EmitsType = {
@@ -43,10 +43,11 @@ export type EmitsType = {
 
 const slots = useSlots();
 
-defineProps<ModalProps>();
+const props = defineProps<ModalProps>();
 const emit = defineEmits<EmitsType>();
 
-const showSlot = computed(() => !!slots?.footer);
+const showFooter = computed(() => !!slots?.footer);
+const showHeader = computed(() => !!props?.title);
 
 function modalClose(event: MouseEvent): void {
   if ((event as ClickEvent).target.dataset.testid === 'modal-container') {
@@ -125,5 +126,15 @@ export default {
   color: var(--dark);
   font-weight: 400;
   margin: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

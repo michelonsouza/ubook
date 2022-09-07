@@ -109,46 +109,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container {
-  z-index: 100;
-  position: fixed;
-  width: 100vw;
-  max-width: 100vw;
-  height: 100vh;
-  max-height: 100vh;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.form-container {
-  width: 27rem;
-  max-width: calc(100% - 2rem);
-  //height: 21.375rem;
-  max-height: calc(100% - 2rem);
-  padding: 1rem 0;
-  border-radius: 16px;
-  box-shadow: 0 16px 10px 0 var(--black-8-16);
-  background-color: var(--white-two);
-  display: flex;
-  flex-direction: column;
-}
-
 .form-wrapper {
   width: 100%;
   padding: 1.3rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-}
-
-.form-header {
-  padding: 1rem;
-  padding-bottom: 0.78rem;
-  padding-top: 0;
-  border-bottom: 1px solid var(--border-color);
 }
 
 .form-footer {
@@ -191,13 +157,6 @@ export default {
   }
 }
 
-.form-title {
-  font-size: 1rem;
-  color: var(--dark);
-  font-weight: 400;
-  margin: 0;
-}
-
 .field-container {
   display: flex;
   flex-direction: column;
@@ -219,15 +178,5 @@ export default {
   & > span[role='alert'] {
     color: var(--accent-color);
   }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

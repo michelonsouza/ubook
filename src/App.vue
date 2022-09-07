@@ -1,5 +1,11 @@
 <template>
   <contact-form-modal :open="contactModalIsOpen" @close="closeModal" />
+  <delete-contact-modal
+    :open="deleteContactModalIsOpen"
+    :contact="{} as any"
+    @close="deleteContactModalIsOpen = false"
+  />
+  <button @click="deleteContactModalIsOpen = true">aqui</button>
   <div>
     <app-header
       :show-create-button="!!contacts.length"
@@ -12,10 +18,16 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { AppHeader, NoContent, ContactFormModal } from '@/components';
+import {
+  AppHeader,
+  NoContent,
+  ContactFormModal,
+  DeleteContactModal,
+} from '@/components';
 import { Contact } from '@/models';
 
 const contactModalIsOpen = ref<boolean>(false);
+const deleteContactModalIsOpen = ref<boolean>(false);
 const contacts = ref<Contact[]>([]);
 
 function closeModal() {
