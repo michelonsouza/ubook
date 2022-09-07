@@ -1,17 +1,16 @@
 <template>
-  <contact-form-modal :open="contactModalIsOpen" @close="closeModal" />
+  <contact-form-modal :open="contactModalIsOpen" @close="closeContactModal" />
   <delete-contact-modal
     :open="deleteContactModalIsOpen"
-    :contact="{} as any"
-    @close="deleteContactModalIsOpen = false"
+    @close="closeDeleteContactModal"
   />
-  <button @click="deleteContactModalIsOpen = true">aqui</button>
-  <div>
-    <app-header
-      :show-create-button="!!contacts.length"
-      @create-contact="openModal"
-    />
-    <no-content @create-contact="openModal" />
+  <app-header
+    :show-create-button="!!contacts.length"
+    @create-contact="openContactModal"
+  />
+  <div class="content-container">
+    <contact-table v-if="!!contacts.length" :value="contacts" />
+    <no-content v-else @create-contact="openContactModal" />
   </div>
 </template>
 
@@ -23,32 +22,34 @@ import {
   NoContent,
   ContactFormModal,
   DeleteContactModal,
+  ContactTable,
 } from '@/components';
+import { mockContacts } from '@/mocks/contacts';
 import { Contact } from '@/models';
 
 const contactModalIsOpen = ref<boolean>(false);
 const deleteContactModalIsOpen = ref<boolean>(false);
-const contacts = ref<Contact[]>([]);
+const contacts = ref<Contact[]>(mockContacts);
 
-function closeModal() {
+function closeContactModal() {
   contactModalIsOpen.value = false;
 }
 
-function openModal() {
+function openContactModal() {
   contactModalIsOpen.value = true;
 }
+
+function closeDeleteContactModal() {
+  deleteContactModalIsOpen.value = false;
+}
+
+// function openDeleteContactModal() {
+//   deleteContactModalIsOpen.value = true;
+// }
 </script>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+<style scoped lang="scss">
+.content-container {
+  padding: 1rem;
 }
 </style>

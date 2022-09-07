@@ -1,7 +1,8 @@
 export interface Contact {
-  id?: string;
-  name: string;
+  id: string;
+  name?: string;
   email?: string;
   phone?: string;
   createdAt: string;
+  avatarColor: string;
 }

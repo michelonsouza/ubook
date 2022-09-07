@@ -33,12 +33,12 @@ import ModalWrapper from './ModalWrapper.vue';
 
 interface DeleteContactModalProps {
   open?: boolean;
-  contact: Contact;
+  contact?: Contact;
 }
 
 type EmitType = {
   (event: 'close'): void;
-  (event: 'delete-content', contact: Contact): void;
+  (event: 'delete-contact', contact?: Contact): void;
 };
 
 const props = defineProps<DeleteContactModalProps>();
@@ -49,7 +49,7 @@ function handleClose(): void {
 }
 
 function handleDeleteContact() {
-  emit('delete-content', props.contact);
+  emit('delete-contact', props?.contact);
 }
 </script>
 

@@ -1,33 +1,35 @@
 <template>
   <modal-wrapper :open="open" :title="title" @close="$emit('close')">
-    <Form v-slot="{ meta }" :initial-values="defaultValues" @submit="onSubmit">
+    <Form
+      v-slot="{ meta, values }"
+      :initial-values="defaultValues"
+      @submit="onSubmit"
+    >
       <div class="form-wrapper">
         <div class="field-container">
-          <Field v-slot="{ field }" name="name" rules="required">
+          <Field v-slot="{ field }" name="name">
             <label for="name">Nome</label>
             <input id="name" v-bind="field" type="text" />
             <ErrorMessage name="name" />
           </Field>
         </div>
         <div class="field-container">
-          <Field v-slot="{ field }" name="email" rules="required|email">
+          <Field v-slot="{ field }" name="email" rules="email">
             <label for="email">E-mail</label>
             <input id="email" v-bind="field" type="text" />
             <ErrorMessage name="email" />
           </Field>
         </div>
         <div class="field-container phone-field-container">
-          <Field v-slot="{ field }" name="phone" rules="required|phone">
+          <Field v-slot="{ field }" name="phone" rules="phone">
             <label for="phone-number">Telefone</label>
-            <!-- @ts-ignore-start -->
             <input
               id="phone-number"
-              v-maska="['(##) ####-####', '(##) #####-####']"
+              v-maska="mask"
               v-bind="field"
               type="text"
             />
             <ErrorMessage name="phone" />
-            <!-- @ts-ignore-end -->
           </Field>
         </div>
       </div>
@@ -44,7 +46,11 @@
           class="action-button submit-button"
           type="submit"
           data-testid="submit-button"
-          :disabled="!meta.valid"
+          :disabled="
+            !meta.valid ||
+            !meta.touched ||
+            (!values.email && !values.phone && !values.name)
+          "
         >
           Salvar
         </button>
@@ -61,6 +67,7 @@ import { v4 as uuid } from 'uuid';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import { Contact } from '@/models';
+import { generateRandomColor } from '@/utils';
 
 import ModalWrapper from './ModalWrapper.vue';
 
@@ -69,7 +76,7 @@ export interface ClickEvent extends MouseEvent {
 }
 
 export interface ContactFormProps {
-  defaultValues?: Contact;
+  defaultValues?: Partial<Contact>;
   open?: boolean;
 }
 
@@ -81,11 +88,9 @@ export type EmitsType = {
 // exposes `v-maska` directive
 const vMaska = maska;
 
-const props = withDefaults(defineProps<ContactFormProps>(), {
-  defaultValues: {
-    id: uuid(),
-  },
-});
+const mask = ['(##) ####-####', '(##) #####-####'];
+
+const props = withDefaults(defineProps<ContactFormProps>(), {});
 const emit = defineEmits<EmitsType>();
 
 const title = computed(
@@ -94,11 +99,16 @@ const title = computed(
 defineExpose(props);
 
 function onSubmit(data: Partial<Contact>): void {
-  emit('submit-form', {
-    ...(props.defaultValues || {}),
+  const id = props?.defaultValues?.id || uuid();
+  const avatarColor =
+    props?.defaultValues?.avatarColor || generateRandomColor();
+  const formatedData = {
+    ...(props?.defaultValues || {}),
     ...data,
-    createdAt: new Date().toISOString(),
-  });
+    id,
+    avatarColor,
+  };
+  emit('submit-form', formatedData);
 }
 </script>
 
