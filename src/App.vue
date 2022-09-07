@@ -1,14 +1,31 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import { AppHeader } from '@/components';
-</script>
-
 <template>
+  <contact-form-modal :open="contactModalIsOpen" @close="closeModal" />
   <div>
-    <app-header />
+    <app-header
+      :show-create-button="!!contacts.length"
+      @create-contact="openModal"
+    />
+    <no-content @create-contact="openModal" />
   </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+import { AppHeader, NoContent, ContactFormModal } from '@/components';
+import { Contact } from '@/models';
+
+const contactModalIsOpen = ref<boolean>(false);
+const contacts = ref<Contact[]>([]);
+
+function closeModal() {
+  contactModalIsOpen.value = false;
+}
+
+function openModal() {
+  contactModalIsOpen.value = true;
+}
+</script>
 
 <style scoped>
 .logo {

@@ -76,7 +76,7 @@ export default {
 
 .search-button {
   position: absolute;
-  right: 0;
+  right: 0.5rem;
   border: 0;
   background: transparent;
   transition: opacity 150ms ease;

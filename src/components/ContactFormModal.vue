@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
     <div
-      v-if="$props.open"
+      v-if="open"
       role="presentation"
       class="container"
       data-testid="modal-container"
@@ -15,14 +15,19 @@
         <header class="form-header" data-testid="modal-form-header">
           <h3 class="form-title" data-testid="modal-form-title">{{ title }}</h3>
         </header>
-        <form></form>
+        <form>
+          <!-- @ts-ignore -->
+          <input v-maska="['(##) ####-####', '(##) #####-####']" type="text" />
+        </form>
       </div>
     </div>
   </transition>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, onBeforeUnmount } from 'vue';
+
+import { maska } from 'maska';
 
 import { Contact } from '@/models';
 
@@ -33,8 +38,11 @@ export interface ContactFormProps {
 
 export type EmitsType = { (event: 'close'): void };
 
+// exposes `v-maska` directive
+const vMaska = maska;
+
 const props = withDefaults(defineProps<ContactFormProps>(), {});
-defineEmits<EmitsType>();
+const emit = defineEmits<EmitsType>();
 
 const title = computed(
   () => `${props.defaultValues ? 'Editar' : 'Criar novo'} contato`,
@@ -44,6 +52,20 @@ defineExpose(props);
 function preventsPropagation(event: MouseEvent): void {
   event.stopPropagation();
 }
+
+function closeOnEsc(event: KeyboardEvent): void {
+  if (event.key === 'Escape') {
+    emit('close');
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', closeOnEsc);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', closeOnEsc);
+});
 </script>
 
 <script lang="ts">

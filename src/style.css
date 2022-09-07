@@ -20,7 +20,7 @@
   font-weight: 400;
 
   color-scheme: dark light;
-  color: var(--black-8-16);
+  color: var(--dark);
   background-color: var(--background);
 
   font-synthesis: none;
@@ -28,6 +28,13 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
