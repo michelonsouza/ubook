@@ -1,4 +1,5 @@
 <template>
+  <contact-form-modal />
   <header data-testid="app-header" class="header-container">
     <img
       data-testid="ubook-logo"
@@ -7,13 +8,16 @@
     />
     <div class="action-container">
       <create-button @click="$emit('create-contact')" />
-      <text-input placeholder="Buscar..." @search="handleSearchContact" />
+      <search-text-input
+        placeholder="Buscar..."
+        @search="handleSearchContact"
+      />
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { CreateButton, TextInput } from '@/components';
+import { CreateButton, SearchTextInput, ContactFormModal } from '@/components';
 
 export interface AppHeaderProps {
   clearAfterSearch?: boolean;

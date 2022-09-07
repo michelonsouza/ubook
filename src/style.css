@@ -12,6 +12,7 @@
   --black-8: rgba(0, 0, 0, 0.08);
   --black-8-16: rgba(0, 0, 0, 0.16);
   --background: #f8f9fd;
+  --border-color: #c0c3d2;
 
   font-family: Roobot, Arial, Helvetica, sans-serif;
   font-size: 16px;

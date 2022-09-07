@@ -1,18 +1,18 @@
 import { mount,  } from '@vue/test-utils';
 import faker from 'faker';
 
-import TextInput from '@/components/TextInput.vue';
+import SearchTextInput from '@/components/SearchTextInput.vue';
 
-describe('TextInput test suit', () => {
+describe('SearchTextInput test suit', () => {
   it('should component to be render', () => {
-    const sut = mount<any>(TextInput);
+    const sut = mount<any>(SearchTextInput);
 
     expect(sut).toBeTruthy();
   });
 
   it('should input has the correct placeholder', () => {
     const placeholder = faker.random.words(3);
-    const sut = mount<any>(TextInput, {
+    const sut = mount<any>(SearchTextInput, {
       props: {
         placeholder,
       }
@@ -25,7 +25,7 @@ describe('TextInput test suit', () => {
 
   it('should input emit event with correct value', () => {
     const value = faker.random.words(3);
-    const sut = mount<any>(TextInput);
+    const sut = mount<any>(SearchTextInput);
 
     const searchButton = sut.get('button');
     const inputElement = sut.get('input');
@@ -38,7 +38,7 @@ describe('TextInput test suit', () => {
 
   it('should input not emit event when pass searchOnClick=false', () => {
     const value = faker.random.words(3);
-    const sut = mount<any>(TextInput, {
+    const sut = mount<any>(SearchTextInput, {
       props: {
         searchOnClick: false,
       }
@@ -55,7 +55,7 @@ describe('TextInput test suit', () => {
 
   it('should input clear value when pass clearAfterSearch=true', () => {
     const value = faker.random.words(3);
-    const sut = mount<any>(TextInput, {
+    const sut = mount<any>(SearchTextInput, {
       props: {
         clearAfterSearch: true,
       }
@@ -70,13 +70,13 @@ describe('TextInput test suit', () => {
     expect(inputElement.element.value).toEqual('');
   });
 
-  it('should import TextInput asyncronous imports', async () => {
-    const sut = await import('@/components/TextInput.vue');
+  it('should import SearchTextInput asyncronous imports', async () => {
+    const sut = await import('@/components/SearchTextInput.vue');
     expect(sut).toBeDefined();
   });
 
-  it('should import TextInput asyncronous dynamic imports', async () => {
-    const name = 'TextInput'
+  it('should import SearchTextInput asyncronous dynamic imports', async () => {
+    const name = 'SearchTextInput'
     const sut = await import(`@/components/${name}.vue`);
     expect(sut).toBeDefined();
   });

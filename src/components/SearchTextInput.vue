@@ -52,7 +52,7 @@ function handleSearch(): void {
 
 <script lang="ts">
 export default {
-  name: 'TextInput',
+  name: 'SearchTextInput',
   inheritAttrs: false,
 };
 </script>
