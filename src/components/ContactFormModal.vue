@@ -1,81 +1,68 @@
 <template>
-  <transition name="fade">
-    <div
-      v-if="open"
-      role="presentation"
-      class="container"
-      data-testid="modal-container"
-      @click="handleClose"
-    >
-      <div class="form-container" data-testid="modal-form-container">
-        <header class="form-header" data-testid="modal-form-header">
-          <h3 class="form-title" data-testid="modal-form-title">{{ title }}</h3>
-        </header>
-        <Form
-          v-slot="{ meta }"
-          :initial-values="defaultValues"
-          @submit="onSubmit"
-        >
-          <div class="form-wrapper">
-            <div class="field-container">
-              <Field v-slot="{ field }" name="name" rules="required">
-                <label for="name">Nome</label>
-                <input id="name" v-bind="field" type="text" />
-                <ErrorMessage name="name" />
-              </Field>
-            </div>
-            <div class="field-container">
-              <Field v-slot="{ field }" name="email" rules="required|email">
-                <label for="email">E-mail</label>
-                <input id="email" v-bind="field" type="text" />
-                <ErrorMessage name="email" />
-              </Field>
-            </div>
-            <div class="field-container phone-field-container">
-              <Field v-slot="{ field }" name="phone" rules="required|phone">
-                <label for="phone-number">Telefone</label>
-                <!-- @ts-ignore-start -->
-                <input
-                  id="phone-number"
-                  v-maska="['(##) ####-####', '(##) #####-####']"
-                  v-bind="field"
-                  type="text"
-                />
-                <ErrorMessage name="phone" />
-                <!-- @ts-ignore-end -->
-              </Field>
-            </div>
-          </div>
-          <footer class="form-footer">
-            <button
-              class="action-button cancel-button"
-              type="button"
-              @click="$emit('close')"
-            >
-              Cancelar
-            </button>
-            <button
-              class="action-button submit-button"
-              type="submit"
-              :disabled="!meta.valid"
-            >
-              Salvar
-            </button>
-          </footer>
-        </Form>
+  <modal-wrapper :open="open" :title="title" @close="$emit('close')">
+    <Form v-slot="{ meta }" :initial-values="defaultValues" @submit="onSubmit">
+      <div class="form-wrapper">
+        <div class="field-container">
+          <Field v-slot="{ field }" name="name" rules="required">
+            <label for="name">Nome</label>
+            <input id="name" v-bind="field" type="text" />
+            <ErrorMessage name="name" />
+          </Field>
+        </div>
+        <div class="field-container">
+          <Field v-slot="{ field }" name="email" rules="required|email">
+            <label for="email">E-mail</label>
+            <input id="email" v-bind="field" type="text" />
+            <ErrorMessage name="email" />
+          </Field>
+        </div>
+        <div class="field-container phone-field-container">
+          <Field v-slot="{ field }" name="phone" rules="required|phone">
+            <label for="phone-number">Telefone</label>
+            <!-- @ts-ignore-start -->
+            <input
+              id="phone-number"
+              v-maska="['(##) ####-####', '(##) #####-####']"
+              v-bind="field"
+              type="text"
+            />
+            <ErrorMessage name="phone" />
+            <!-- @ts-ignore-end -->
+          </Field>
+        </div>
       </div>
-    </div>
-  </transition>
+      <div class="form-footer">
+        <button
+          class="action-button cancel-button"
+          type="button"
+          data-testid="cancel-button"
+          @click="$emit('close')"
+        >
+          Cancelar
+        </button>
+        <button
+          class="action-button submit-button"
+          type="submit"
+          data-testid="submit-button"
+          :disabled="!meta.valid"
+        >
+          Salvar
+        </button>
+      </div>
+    </Form>
+  </modal-wrapper>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onBeforeUnmount } from 'vue';
+import { computed } from 'vue';
 
 import { maska } from 'maska';
 import { v4 as uuid } from 'uuid';
 import { Form, Field, ErrorMessage } from 'vee-validate';
 
 import { Contact } from '@/models';
+
+import ModalWrapper from './ModalWrapper.vue';
 
 export interface ClickEvent extends MouseEvent {
   target: HTMLElement;
@@ -102,7 +89,7 @@ const props = withDefaults(defineProps<ContactFormProps>(), {
 const emit = defineEmits<EmitsType>();
 
 const title = computed(
-  () => `${props.defaultValues ? 'Editar' : 'Criar novo'} contato`,
+  () => `${props.defaultValues?.name ? 'Editar' : 'Criar novo'} contato`,
 );
 defineExpose(props);
 
@@ -113,26 +100,6 @@ function onSubmit(data: Partial<Contact>): void {
     createdAt: new Date().toISOString(),
   });
 }
-
-function handleClose(event: MouseEvent): void {
-  if ((event as ClickEvent).target.dataset.testid === 'modal-container') {
-    emit('close');
-  }
-}
-
-function closeOnEsc(event: KeyboardEvent): void {
-  if (event.key === 'Escape') {
-    emit('close');
-  }
-}
-
-onMounted(() => {
-  window.addEventListener('keydown', closeOnEsc);
-});
-
-onBeforeUnmount(() => {
-  window.removeEventListener('keydown', closeOnEsc);
-});
 </script>
 
 <script lang="ts">

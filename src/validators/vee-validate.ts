@@ -8,7 +8,7 @@ defineRule<string, string[]>('required', (value, _, context) => {
   return true;
 });
 
-defineRule<string, string[]>('email', (value, _) => {
+defineRule<string, string[]>('email', (value: string, _: string[]) => {
   if (!value || !value.length) {
     return true;
   }
@@ -20,13 +20,12 @@ defineRule<string, string[]>('email', (value, _) => {
   return true;
 });
 
-defineRule<string, string[]>('phone', (value, _) => {
+defineRule<string, string[]>('phone', (value: string, _: string[]) => {
   if (!value || !value.length) {
     return true;
   }
 
   if (!/(\([0-9]{2}\)\s[0-9]{4,5}-[0-9]{4})/.test(value)) {
-    console.log('erro');
     return 'Insira um telefone válido.';
   }
 
