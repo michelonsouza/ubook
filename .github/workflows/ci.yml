@@ -1,4 +1,4 @@
-name: CI
+name: coverals
 
 on:
   push:
@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -34,3 +34,6 @@ jobs:
         VITE_APP_NODE_ENV: "production"
       with:
         github-token: ${{ github.token }}
+        VITE_APP_ENCRYPT_STORAGE_SECRET_KEY: "eec61fa0-77bc-4cde-a3f9-052314bcdb8d"
+        VITE_APP_ENCRYPT_STORAGE_PREFIX: "@ubook"
+        VITE_APP_NODE_ENV: "production"
