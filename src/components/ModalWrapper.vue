@@ -16,7 +16,7 @@
             <h3 class="modal-title" data-testid="modal-title">{{ title }}</h3>
           </header>
         </slot>
-        <slot :open="open" :close-modal="onModalClose" />
+        <slot :open="open" />
         <div v-if="showFooter" class="modal-footer">
           <slot name="footer" />
         </div>
@@ -53,10 +53,6 @@ function modalClose(event: MouseEvent): void {
   if ((event as ClickEvent).target.dataset.testid === 'modal-container') {
     emit('close');
   }
-}
-
-function onModalClose() {
-  emit('close');
 }
 
 function closeOnEsc(event: KeyboardEvent): void {

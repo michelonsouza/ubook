@@ -14,3 +14,14 @@ export const mockContacts: Contact[] = Array(15)
     avatarColor: generateRandomColor(),
     createdAt: new Date().toISOString(),
   }));
+
+export function generateMockedContact(): Contact {
+  return {
+    id: faker.datatype.uuid(),
+    name: `${faker.name.firstName()} ${faker.name.lastName()}`,
+    email: faker.internet.email(),
+    phone: faker.phone.phoneNumber('##9########'),
+    avatarColor: generateRandomColor(),
+    createdAt: new Date().toISOString(),
+  };
+}
