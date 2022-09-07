@@ -17,7 +17,7 @@
           </header>
         </slot>
         <slot :open="open" />
-        <div v-if="showFooter" class="modal-footer">
+        <div v-if="showFooter" data-testid="modalfooter" class="modal-footer">
           <slot name="footer" />
         </div>
       </div>
