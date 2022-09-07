@@ -1,16 +1,16 @@
 import { mount } from '@vue/test-utils';
 
-import { AppHeader } from '@/components';
+import { NoContent } from '@/components';
 
-describe('AppHeader test suit', () => {
+describe('NoContent test suit', () => {
   it('should component to be render', () => {
-    const sut = mount<any>(AppHeader);
+    const sut = mount<any>(NoContent);
 
     expect(sut).toBeTruthy();
   });
 
   it('should emit create-contact event', () => {
-    const sut = mount<any>(AppHeader, {
+    const sut = mount<any>(NoContent, {
       props: {
         showCreateButton: true,
       }
@@ -22,8 +22,8 @@ describe('AppHeader test suit', () => {
     expect(sut.emitted()).toHaveProperty('create-contact');
   });
 
-  it('should import AppHeader asyncronous imports', async () => {
-    const sut = await import('@/components/AppHeader.vue');
+  it('should import NoContent asyncronous imports', async () => {
+    const sut = await import('@/components/NoContent.vue');
     expect(sut).toBeDefined();
   });
 });
