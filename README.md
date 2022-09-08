@@ -1,5 +1,5 @@
-<a href="https://ubook-schedule.netlify.app/" target="_blank">
-  <img width="400" style="margin-bottom: 30px;" src="./docs/resources/ic-logo.svg" />
+<a href="https://ubook-schedule.netlify.app/" style="margin-bottom: 30px; display: block;" target="_blank">
+  <img width="400" src="./docs/resources/ic-logo.svg" />
 </a>
 
  [![Version](https://img.shields.io/github/package-json/v/michelonsouza/ubook/main)](https://github.com/michelonsouza/ubook/blob/main/package.json#L4) [![Code Size](https://img.shields.io/github/languages/code-size/michelonsouza/ubook)](https://github.com/michelonsouza/ubook) [![Coverage Status](https://coveralls.io/repos/github/michelonsouza/ubook/badge.svg?branch=main)](https://coveralls.io/github/michelonsouza/ubook?branch=main) [![CodeQL](https://github.com/michelonsouza/ubook/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/michelonsouza/ubook/actions/workflows/codeql-analysis.yml)
