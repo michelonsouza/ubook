@@ -15,13 +15,31 @@ export const mockContacts: Contact[] = Array(15)
     createdAt: new Date().toISOString(),
   }));
 
-export function generateMockedContact(): Contact {
+const fakerFunctions: Record<keyof Contact, () => string> = {
+  id: () => faker.datatype.uuid(),
+  name: () => `${faker.name.firstName()} ${faker.name.lastName()}`,
+  email: () => faker.internet.email(),
+  phone: () => faker.phone.phoneNumber('##9########'),
+  avatarColor: () => generateRandomColor(),
+  createdAt: () => new Date().toISOString(),
+};
+
+export function generateMockedContact(excludeValues?: string[]): Contact {
   return {
-    id: faker.datatype.uuid(),
-    name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-    email: faker.internet.email(),
-    phone: faker.phone.phoneNumber('##9########'),
-    avatarColor: generateRandomColor(),
-    createdAt: new Date().toISOString(),
+    id: excludeValues?.includes('id') ? '' : fakerFunctions.id(),
+    name: excludeValues?.includes('name') ? '' : fakerFunctions.name(),
+    email: excludeValues?.includes('email') ? '' : fakerFunctions.email(),
+    phone: excludeValues?.includes('phone') ? '' : fakerFunctions.phone(),
+    avatarColor: fakerFunctions.avatarColor(),
+    createdAt: fakerFunctions.createdAt(),
   };
+}
+
+export function generateMockedContacts(
+  excludeValues?: (keyof Contact)[],
+  length = 15,
+): Contact[] {
+  return Array(length)
+    .fill(0)
+    .map(() => generateMockedContact(excludeValues));
 }

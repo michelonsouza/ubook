@@ -1,11 +1,11 @@
 <template>
   <div class="table-wrapper">
-    <table class="table-container">
-      <tr class="table-row table-head">
-        <th class="name-column">Contatos</th>
-        <th>Email</th>
-        <th>Telefone</th>
-        <th></th>
+    <table class="table-container" data-testid="contact-table">
+      <tr class="table-row table-head" data-testid="table-head-row">
+        <th data-testid="th-name-column" class="name-column">Contatos</th>
+        <th data-testid="th-email-column">Email</th>
+        <th data-testid="th-phone-column">Telefone</th>
+        <th data-testid="th-actions-column"></th>
       </tr>
       <table-row
         v-for="contact in value"

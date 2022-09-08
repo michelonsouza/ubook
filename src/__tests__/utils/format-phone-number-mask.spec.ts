@@ -13,6 +13,14 @@ describe('formatPhoneNumberMask suit', () => {
     expect(isPhone).toBe(true);
   });
 
+  it('should formatPhoneNumberMask return incorrect value', () => {
+    const phoneNumber = faker.phone.phoneNumber('##9####');
+    const phoneNumberFormated = formatPhoneNumberMask(phoneNumber);
+    const isPhone = phoneNumberRegex.test(phoneNumberFormated);
+
+    expect(isPhone).not.toBe(true);
+  });
+
   it('should formatPhoneNumberMask return empty string when passes null', () => {
     const phoneNumberFormated = formatPhoneNumberMask(null);
 

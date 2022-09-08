@@ -70,6 +70,7 @@ function getFirstLetter(name: string): string {
 }
 
 onMounted(() => {
+  /* c8 ignore next 8 */
   const time = setInterval(() => {
     const formatedDate = new Date(props.contact.createdAt).getTime() + 10000;
     const difference = formatedDate - new Date().getTime();
