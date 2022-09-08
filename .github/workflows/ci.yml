@@ -25,7 +25,6 @@ jobs:
         echo "VITE_APP_ENCRYPT_STORAGE_SECRET_KEY=$env:STORAGE_SECRET_KEY" > .env
         echo "VITE_APP_ENCRYPT_STORAGE_PREFIX=$env:STORAGE_PREFIX" >> .env
         echo "VITE_APP_NODE_ENV=$env:APP_NODE_ENV" >> .env
-      run: |
         yarn install
         yarn test:coverage
 
