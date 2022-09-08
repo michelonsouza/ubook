@@ -48,7 +48,7 @@
           data-testid="submit-button"
           :disabled="
             !meta.valid ||
-            !meta.touched ||
+            (!meta.touched && !meta.valid) ||
             (!values.email && !values.phone && !values.name)
           "
         >
@@ -103,12 +103,16 @@ function onSubmit(data: Partial<Contact>): void {
   const avatarColor =
     props?.defaultValues?.avatarColor || generateRandomColor();
   const createdAt = props?.defaultValues?.createdAt || new Date().toISOString();
+  const phone = data?.phone
+    ? data.phone.replaceAll(/[()\s-]/gi, '')
+    : data?.phone;
   const formatedData: Contact = {
     ...(props?.defaultValues || {}),
     ...data,
     id,
     avatarColor,
     createdAt,
+    phone,
   };
   emit('submit-form', formatedData);
 }
@@ -166,6 +170,7 @@ export default {
 
   &:disabled {
     opacity: 0.32;
+    cursor: not-allowed;
   }
 }
 

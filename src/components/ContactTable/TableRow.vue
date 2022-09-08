@@ -1,6 +1,6 @@
 <template>
-  <tr :class="`table-row${isNew ? ' is-new' : ''}`">
-    <td class="name-column">
+  <tr :class="`table-row${isNew ? ' is-new' : ''}`" data-testid="table-row">
+    <td class="name-column" data-testid="name-column">
       <div class="data-value name-column">
         <span
           class="avatar"
@@ -11,22 +11,23 @@
       </div>
     </td>
     <td>
-      <div class="data-value">
+      <div class="data-value" data-testid="email-column">
         <p>{{ contact?.email || '' }}</p>
       </div>
     </td>
     <td>
-      <div class="data-value">
+      <div class="data-value" data-testid="phone-column">
         <p>{{ contact?.phone ? formatPhoneNumberMask(contact.phone) : '' }}</p>
       </div>
     </td>
-    <td class="action">
+    <td class="action" data-testid="action-column">
       <div class="data-value actions-container">
         <button
           class="action-button"
           type="button"
           :title="`Editar ${contact?.name}`"
-          @click="$emit('edit-contact', contact)"
+          data-testid="edit-action"
+          @click="$emit('edit-contact')"
         >
           <img src="@/assets/icons/ic-edit.svg" alt="Edit Icon" />
         </button>
@@ -34,7 +35,8 @@
           class="action-button"
           type="button"
           :title="`Excluir ${contact.name}`"
-          @click="$emit('delete-contact', contact)"
+          data-testid="delete-action"
+          @click="$emit('delete-contact')"
         >
           <img src="@/assets/icons/ic-delete.svg" alt="Edit Icon" />
         </button>
@@ -54,8 +56,8 @@ interface TableRowProps {
 }
 
 type EmitType = {
-  (event: 'edit-contact', contact: Contact): void;
-  (event: 'delete-contact', contact: Contact): void;
+  (event: 'edit-contact'): void;
+  (event: 'delete-contact'): void;
 };
 
 const props = defineProps<TableRowProps>();

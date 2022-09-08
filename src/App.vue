@@ -112,12 +112,13 @@ function handleEditContact(data: Contact): void {
 }
 
 function handleCreateContact(data: Contact): void {
-  closeContactModal();
   if (selectedContactToAction.value) {
+    closeContactModal();
     handleEditContact(data);
     return;
   }
 
+  closeContactModal();
   const newValue = [data, ...contacts.value];
   contacts.value = newValue;
 

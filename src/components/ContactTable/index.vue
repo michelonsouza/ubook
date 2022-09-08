@@ -46,9 +46,9 @@ export default {
 .table-wrapper {
   border: 1px solid var(--white);
   border-radius: 4px;
+  background-color: var(--white-two);
 }
 .table-container {
-  //border: 1px solid var(--white);
   border-radius: 4px;
   width: 100%;
   border-collapse: collapse;

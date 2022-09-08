@@ -37,10 +37,21 @@
   -webkit-font-smoothing: antialiased;
 }
 
+::-moz-selection { /* Code for Firefox */
+  color: var(--white-two);
+  background: var(--accent-color);
+}
+
+::selection {
+  color: var(--white-two);
+  background: var(--accent-color);
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  --background: #f8f9fd;
 }
 
 body, input, a, button {
