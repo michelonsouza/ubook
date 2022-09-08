@@ -1,7 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { vi } from 'vitest';
 import flushPromises from 'flush-promises';
-import waitForExpect from 'wait-for-expect';
 
 import { ContactTable } from '@/components';
 import { generateMockedContacts } from '@/mocks/contacts';

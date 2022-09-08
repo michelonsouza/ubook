@@ -7,6 +7,13 @@ export const encryptStorage = new EncryptStorage(
   },
 );
 
+delete window.EncryptStorage;
+delete window.AsyncEncryptStorage;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+delete (globalThis as any).EncryptStorage;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+delete (globalThis as any).AsyncEncryptStorage;
+
 if (import.meta.env.VITE_APP_NODE_ENV !== 'production') {
   window.encryptStorage = encryptStorage;
 }

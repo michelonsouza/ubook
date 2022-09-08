@@ -1,7 +1,9 @@
-import { EncryptStorage } from 'encrypt-storage';
+import { EncryptStorage, AsyncEncryptStorage } from 'encrypt-storage';
 
 declare global {
   interface Window {
     encryptStorage?: EncryptStorage;
+    EncryptStorage?: EncryptStorage;
+    AsyncEncryptStorage?: AsyncEncryptStorage;
   }
 }
