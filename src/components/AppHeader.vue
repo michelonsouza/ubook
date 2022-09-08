@@ -48,11 +48,18 @@ export default {
   display: flex;
   align-items: center;
   gap: 3.75rem;
+  position: sticky;
+  top: 0;
+  background-color: var(--background);
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
+
+    & > img {
+      align-self: center;
+    }
   }
 }
 

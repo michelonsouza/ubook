@@ -19,17 +19,28 @@
   />
   <div class="content-container">
     <contact-table
-      v-if="!!computedContacts.length"
+      v-if="!!computedContacts.length && !isMobile"
+      class="desktop-data-list"
       :value="computedContacts"
       @edit-contact="data => handleSelectToAction('edit', data)"
       @delete-contact="data => handleSelectToAction('delete', data)"
     />
-    <no-content v-else @create-contact="openContactModal" />
+    <contact-card-list
+      v-if="!!computedContacts.length && isMobile"
+      :value="computedContacts"
+      class="mobile-data-list"
+      @edit-contact="data => handleSelectToAction('edit', data)"
+      @delete-contact="data => handleSelectToAction('delete', data)"
+    />
+    <no-content
+      v-if="!computedContacts.length"
+      @create-contact="openContactModal"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
 import {
   AppHeader,
@@ -37,6 +48,7 @@ import {
   ContactFormModal,
   DeleteContactModal,
   ContactTable,
+  ContactCardList,
 } from '@/components';
 import { Contact } from '@/models';
 import { encryptStorage } from '@/utils';
@@ -51,6 +63,13 @@ const deleteContactModalIsOpen = ref<boolean>(false);
 const contacts = ref<Contact[]>(oldContacts);
 const searchText = ref<string>('');
 const selectedContactToAction = ref<Contact | undefined>();
+const isMobile = ref<boolean>(window.innerWidth < 768);
+
+function getWindoWidth(event: any): void {
+  const width = event.target.innerWidth;
+
+  isMobile.value = width < 768;
+}
 
 const computedContacts = computed(() => {
   if (!searchText.value) {
@@ -145,6 +164,20 @@ function handleSelectToAction(type: 'edit' | 'delete', data: Contact): void {
 function handleSearch(event: Event): void {
   searchText.value = (event as SearchTextInputEvent).target.value || '';
 }
+
+onMounted(() => {
+  window.addEventListener('resize', getWindoWidth);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', getWindoWidth);
+});
+</script>
+
+<script lang="ts">
+export default {
+  name: 'RootApp',
+};
 </script>
 
 <style scoped lang="scss">

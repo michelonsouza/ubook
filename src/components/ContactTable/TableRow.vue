@@ -5,19 +5,21 @@
         <span
           class="avatar"
           :style="{ backgroundColor: contact.avatarColor }"
-          >{{ contact.name ? getFirstLetter(contact.name) : '' }}</span
+          >{{ contact.name ? getFirstLetter(contact.name) : 'N/A' }}</span
         >
         <p>{{ contact.name }}</p>
       </div>
     </td>
     <td>
       <div class="data-value" data-testid="email-column">
-        <p>{{ contact?.email || '' }}</p>
+        <p>{{ contact?.email || 'N/A' }}</p>
       </div>
     </td>
     <td>
       <div class="data-value" data-testid="phone-column">
-        <p>{{ contact?.phone ? formatPhoneNumberMask(contact.phone) : '' }}</p>
+        <p>
+          {{ contact?.phone ? formatPhoneNumberMask(contact.phone) : 'N/A' }}
+        </p>
       </div>
     </td>
     <td class="action" data-testid="action-column">
