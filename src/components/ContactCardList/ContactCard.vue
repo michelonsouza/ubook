@@ -106,7 +106,7 @@ export default {
   min-height: 3rem;
   border-radius: 50%;
   color: var(--white-two);
-  font-size: 1rem;
+  font-size: 1.5rem;
   line-height: 1rem;
   text-transform: uppercase;
 }
