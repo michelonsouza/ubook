@@ -1,3 +1,14 @@
+<a href="https://ubook-schedule.netlify.app/" target="_blank">
+  <img width="400" style="margin-bottom: 30px;" src="./docs/resources/ic-logo.svg" />
+</a>
+
+ [![Version](https://img.shields.io/github/package-json/v/michelonsouza/ubook/main)](https://github.com/michelonsouza/ubook/blob/main/package.json#L4) [![Code Size](https://img.shields.io/github/languages/code-size/michelonsouza/ubook)](https://github.com/michelonsouza/ubook) [![Coverage Status](https://coveralls.io/repos/github/michelonsouza/ubook/badge.svg?branch=main)](https://coveralls.io/github/michelonsouza/ubook?branch=main) [![CodeQL](https://github.com/michelonsouza/ubook/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/michelonsouza/ubook/actions/workflows/codeql-analysis.yml)
+
+## Oline app
+<a href="https://ubook-schedule.netlify.app/" target="_blank">Ubook</a>
+# Before run this project
+Copy `.env.example` and rename to `.env`
+
 # Vue 3 + TypeScript + Vite
 
 This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
