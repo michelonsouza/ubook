@@ -33,10 +33,10 @@ export default {
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-  min-height: calc(100vh - 66px);
+  min-height: calc(100vh - 98px);
 
   @media (max-width: 768px) {
-    min-height: calc(100vh - 114px);
+    min-height: calc(100vh - 146px);
   }
 }
 
