@@ -5,9 +5,9 @@
         <span
           class="avatar"
           :style="{ backgroundColor: contact.avatarColor }"
-          >{{ contact.name ? getFirstLetter(contact.name) : 'N/A' }}</span
+          >{{ contact?.name ? getFirstLetter(contact.name) : 'U' }}</span
         >
-        <p>{{ contact.name }}</p>
+        <p>{{ contact?.name || 'N/A' }}</p>
       </div>
     </td>
     <td>

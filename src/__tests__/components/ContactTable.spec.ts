@@ -48,15 +48,12 @@ describe('ContactTable test suit', () => {
     expect(sut.emitted()).toHaveProperty('delete-contact');
   });
 
-  it('should ContactTable row not have name, email and phone values', async () => {
-    let fakeContacts = generateMockedContacts(['email', 'name', 'phone'], 10);
-    fakeContacts.map(contact => ({
-      ...contact,
-      createdAt: new Date().toISOString(),
-    }))
+  it('should ContactTable row have "N/A" for name, email and phone values', async () => {
+    const defaultValue = 'N/A';
+    
     const sut = mount<any>(ContactTable, {
       props: {
-        value: fakeContacts,
+        value: generateMockedContacts(['email', 'name', 'phone'], 10),
       },
     });
 
@@ -66,9 +63,9 @@ describe('ContactTable test suit', () => {
     const emailColumn = sut.find('div[data-testid="email-column"] > p');
     const phoneColumn = sut.find('div[data-testid="phone-column"] > p');
     
-    expect(nameColumn.text()).toBeFalsy();
-    expect(emailColumn.text()).toBeFalsy();
-    expect(phoneColumn.text()).toBeFalsy();
+    expect(nameColumn.text()).toEqual(defaultValue);
+    expect(emailColumn.text()).toEqual(defaultValue);
+    expect(phoneColumn.text()).toEqual(defaultValue);
   });
 
   it('should import ContactTable asyncronous imports', async () => {
