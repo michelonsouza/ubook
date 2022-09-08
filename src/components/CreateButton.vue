@@ -1,6 +1,10 @@
 <template>
   <button data-testid="create-button" class="create-button" v-bind="$attrs">
-    <img data-testid="plus-icon" src="@/assets/icons/ic-plus.svg" />
+    <img
+      data-testid="plus-icon"
+      src="@/assets/icons/ic-plus.svg"
+      alt="Plus icon"
+    />
     <span data-testid="button-text">Criar contato</span>
   </button>
 </template>

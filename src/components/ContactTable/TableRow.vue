@@ -4,6 +4,7 @@
       <div class="data-value name-column">
         <span
           class="avatar"
+          aria-label="Avatar"
           :style="{ backgroundColor: contact.avatarColor }"
           >{{ contact?.name ? getFirstLetter(contact.name) : 'U' }}</span
         >
@@ -27,6 +28,7 @@
         <button
           class="action-button"
           type="button"
+          :aria-label="`Editar ${contact?.name}`"
           :title="`Editar ${contact?.name}`"
           data-testid="edit-action"
           @click="$emit('edit-contact')"
@@ -36,11 +38,12 @@
         <button
           class="action-button"
           type="button"
+          :aria-label="`Excluir ${contact.name}`"
           :title="`Excluir ${contact.name}`"
           data-testid="delete-action"
           @click="$emit('delete-contact')"
         >
-          <img src="@/assets/icons/ic-delete.svg" alt="Edit Icon" />
+          <img src="@/assets/icons/ic-delete.svg" alt="Delete Icon" />
         </button>
       </div>
     </td>

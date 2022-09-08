@@ -1,8 +1,11 @@
 <template>
   <div :class="`card-container${isNew ? ' is-new' : ''}`">
-    <span class="avatar" :style="{ backgroundColor: contact.avatarColor }">{{
-      contact.name ? getFirstLetter(contact.name) : 'U'
-    }}</span>
+    <span
+      class="avatar"
+      :style="{ backgroundColor: contact.avatarColor }"
+      aria-label="Avatar"
+      >{{ contact.name ? getFirstLetter(contact.name) : 'U' }}</span
+    >
     <div class="info-container">
       <p>{{ contact?.name || 'N/A' }}</p>
       <p>{{ contact?.email || 'N/A' }}</p>
@@ -14,6 +17,7 @@
       <button
         class="action-button"
         type="button"
+        :aria-label="`Editar ${contact?.name}`"
         :title="`Editar ${contact?.name}`"
         data-testid="edit-action"
         @click="$emit('edit-contact')"
@@ -23,11 +27,12 @@
       <button
         class="action-button"
         type="button"
+        :aria-label="`Excluir ${contact.name}`"
         :title="`Excluir ${contact.name}`"
         data-testid="delete-action"
         @click="$emit('delete-contact')"
       >
-        <img src="@/assets/icons/ic-delete.svg" alt="Edit Icon" />
+        <img src="@/assets/icons/ic-delete.svg" alt="Delete Icon" />
       </button>
     </div>
   </div>

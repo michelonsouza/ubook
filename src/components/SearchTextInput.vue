@@ -14,7 +14,11 @@
       class="search-button"
       @click="handleSearch"
     >
-      <img data-testid="search-icon" src="@/assets/icons/ic-search.svg" />
+      <img
+        data-testid="search-icon"
+        src="@/assets/icons/ic-search.svg"
+        alt="Search Icon"
+      />
     </button>
   </div>
 </template>
