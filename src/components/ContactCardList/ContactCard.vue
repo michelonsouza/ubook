@@ -1,10 +1,10 @@
 <template>
   <div :class="`card-container${isNew ? ' is-new' : ''}`">
     <span class="avatar" :style="{ backgroundColor: contact.avatarColor }">{{
-      contact.name ? getFirstLetter(contact.name) : 'N/A'
+      contact.name ? getFirstLetter(contact.name) : 'U'
     }}</span>
     <div class="info-container">
-      <p>{{ contact?.name || 'sem nome' }}</p>
+      <p>{{ contact?.name || 'N/A' }}</p>
       <p>{{ contact?.email || 'N/A' }}</p>
       <p>
         {{ contact?.phone ? formatPhoneNumberMask(contact.phone) : 'N/A' }}
