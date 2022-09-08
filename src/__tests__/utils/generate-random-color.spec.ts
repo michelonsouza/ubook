@@ -1,6 +1,6 @@
 import { generateRandomColor } from '@/utils';
 
-const colorRegex = /#[A-za-z0-9]{6}/;
+const colorRegex = /#[A-Za-z0-9]{6}/;
 
 describe('generateRamdomColor suit', () => {
   it('should generateRamdomColor return coolor', () => {
