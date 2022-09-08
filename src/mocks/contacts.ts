@@ -26,7 +26,7 @@ const fakerFunctions: Record<keyof Contact, () => string> = {
 
 export function generateMockedContact(excludeValues?: string[]): Contact {
   return {
-    id: excludeValues?.includes('id') ? undefined : fakerFunctions.id(),
+    id: excludeValues?.includes('id') ? '' : fakerFunctions.id(),
     name: excludeValues?.includes('name') ? undefined : fakerFunctions.name(),
     email: excludeValues?.includes('email')
       ? undefined
