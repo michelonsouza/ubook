@@ -18,6 +18,7 @@
         data-testid="search-icon"
         src="@/assets/icons/ic-search.svg"
         alt="Search Icon"
+        class="search-icon"
       />
     </button>
   </div>
@@ -105,6 +106,11 @@ export default {
 
   &::placeholder {
     color: var(--bluey-grey);
+  }
+
+  .search-icon {
+    width: 1rem;
+    height: 1rem;
   }
 }
 </style>

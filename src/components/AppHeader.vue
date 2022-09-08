@@ -2,6 +2,7 @@
   <header data-testid="app-header" class="header-container">
     <img
       data-testid="ubook-logo"
+      class="ubook-logo"
       src="@/assets/images/ic-logo.svg"
       alt="Ubook Logo"
     />
@@ -51,6 +52,11 @@ export default {
   position: sticky;
   top: 0;
   background-color: var(--background);
+
+  & > img {
+    width: 147px;
+    height: 32px;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;

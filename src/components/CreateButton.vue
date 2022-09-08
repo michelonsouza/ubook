@@ -42,7 +42,7 @@ export default {
 
   & > img {
     width: 1rem;
-    height: auto;
+    height: 1rem;
   }
 }
 </style>
