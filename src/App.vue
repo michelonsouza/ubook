@@ -18,24 +18,27 @@
     @input="handleSearch"
   />
   <div class="content-container">
-    <contact-table
-      v-if="!!computedContacts.length && !isMobile"
-      class="desktop-data-list"
-      :value="computedContacts"
-      @edit-contact="data => handleSelectToAction('edit', data)"
-      @delete-contact="data => handleSelectToAction('delete', data)"
-    />
-    <contact-card-list
-      v-if="!!computedContacts.length && isMobile"
-      :value="computedContacts"
-      class="mobile-data-list"
-      @edit-contact="data => handleSelectToAction('edit', data)"
-      @delete-contact="data => handleSelectToAction('delete', data)"
-    />
-    <no-content
-      v-if="!computedContacts.length"
-      @create-contact="openContactModal"
-    />
+    <transition name="fade-content" mode="out-in">
+      <no-content
+        v-if="!computedContacts.length"
+        :has-old-values="!!contacts.length"
+        @create-contact="openContactModal"
+      />
+      <contact-table
+        v-else-if="!!computedContacts.length && !isMobile"
+        class="desktop-data-list"
+        :value="computedContacts"
+        @edit-contact="data => handleSelectToAction('edit', data)"
+        @delete-contact="data => handleSelectToAction('delete', data)"
+      />
+      <contact-card-list
+        v-else-if="!!computedContacts.length && isMobile"
+        :value="computedContacts"
+        class="mobile-data-list"
+        @edit-contact="data => handleSelectToAction('edit', data)"
+        @delete-contact="data => handleSelectToAction('delete', data)"
+      />
+    </transition>
   </div>
 </template>
 
@@ -183,5 +186,15 @@ export default {
 <style scoped lang="scss">
 .content-container {
   padding: 1rem;
+}
+
+.fade-content-enter-active,
+.fade-content-leave-active {
+  transition: opacity 200ms ease;
+}
+
+.fade-content-enter-from,
+.fade-content-leave-to {
+  opacity: 0;
 }
 </style>

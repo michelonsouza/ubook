@@ -5,7 +5,7 @@
       src="@/assets/icons/ic-book.svg"
       alt="Book Icon"
     />
-    <p class="no-content-description">Nenhum contato foi criado ainda.</p>
+    <p class="no-content-description">{{ title }}</p>
     <create-button
       class="no-content-create-button"
       @click="$emit('create-contact')"
@@ -14,10 +14,25 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import CreateButton from './CreateButton.vue';
 
-export type EmitType = { (event: 'create-contact'): void };
+interface NoContentProps {
+  hasOldValues?: boolean;
+}
+
+type EmitType = { (event: 'create-contact'): void };
 defineEmits<EmitType>();
+const props = defineProps<NoContentProps>();
+
+const title = computed(() => {
+  const selectedTitle = props.hasOldValues
+    ? 'Nenhum contato encontrado.'
+    : 'Nenhum contato foi criado ainda.';
+
+  return selectedTitle;
+});
 </script>
 
 <script lang="ts">
