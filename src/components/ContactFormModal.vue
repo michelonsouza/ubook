@@ -94,7 +94,14 @@ const props = defineProps<ContactFormProps>();
 const emit = defineEmits<EmitsType>();
 
 const title = computed(
-  () => `${props.defaultValues?.name ? 'Editar' : 'Criar novo'} contato`,
+  () =>
+    `${
+      props.defaultValues?.name ||
+      props.defaultValues?.email ||
+      props.defaultValues?.phone
+        ? 'Editar'
+        : 'Criar novo'
+    } contato`,
 );
 defineExpose(props);
 
