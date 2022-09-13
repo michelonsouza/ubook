@@ -107,10 +107,10 @@ export default {
   &::placeholder {
     color: var(--bluey-grey);
   }
+}
 
-  .search-icon {
-    width: 1rem;
-    height: 1rem;
-  }
+.search-icon {
+  width: 1rem;
+  height: 1rem;
 }
 </style>
