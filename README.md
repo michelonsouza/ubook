@@ -2,7 +2,7 @@
   <img width="400" src="./docs/resources/ic-logo.svg" />
 </a>
 
- [![Version](https://img.shields.io/github/package-json/v/michelonsouza/ubook/main)](https://github.com/michelonsouza/ubook/blob/main/package.json#L4) [![Code Size](https://img.shields.io/github/languages/code-size/michelonsouza/ubook)](https://github.com/michelonsouza/ubook) [![Coverage Status](https://coveralls.io/repos/github/michelonsouza/ubook/badge.svg?branch=main)](https://coveralls.io/github/michelonsouza/ubook?branch=main) [![CodeQL](https://github.com/michelonsouza/ubook/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/michelonsouza/ubook/actions/workflows/codeql-analysis.yml)
+ [![Version](https://img.shields.io/github/package-json/v/michelonsouza/ubook/main)](https://github.com/michelonsouza/ubook/blob/main/package.json#L4) [![Code Size](https://img.shields.io/github/languages/code-size/michelonsouza/ubook)](https://github.com/michelonsouza/ubook) [![Coverage Status](https://coveralls.io/repos/github/michelonsouza/ubook/badge.svg?branch=main)](https://coveralls.io/github/michelonsouza/ubook?branch=main) [![CodeQL](https://github.com/michelonsouza/ubook/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/michelonsouza/ubook/actions/workflows/codeql-analysis.yml) [![Netlify Status](https://api.netlify.com/api/v1/badges/b1b07203-9a6c-4bbc-bdd1-c190723aba52/deploy-status)](https://app.netlify.com/sites/ubook-schedule/deploys)
 
 ## Oline app
 <a href="https://ubook-schedule.netlify.app/" target="_blank">Ubook</a>
