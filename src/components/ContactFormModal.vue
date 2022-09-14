@@ -162,10 +162,15 @@ export default {
   background: transparent;
   border-radius: 16px;
   padding: 0.5rem 1rem;
+  transition: all 150ms ease;
 }
 
 .cancel-button {
   color: var(--accent-color);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
 }
 
 .submit-button {
