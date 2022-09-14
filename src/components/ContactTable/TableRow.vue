@@ -54,7 +54,7 @@
 import { ref, onMounted } from 'vue';
 
 import { Contact } from '@/models';
-import { formatPhoneNumberMask } from '@/utils';
+import { formatPhoneNumberMask, verifyIsNewContact } from '@/utils';
 
 interface TableRowProps {
   contact: Contact;
@@ -68,7 +68,7 @@ type EmitType = {
 const props = defineProps<TableRowProps>();
 defineEmits<EmitType>();
 
-const isNew = ref<boolean>(true);
+const isNew = ref<boolean>(verifyIsNewContact(props.contact.createdAt));
 
 function getFirstLetter(name: string): string {
   return name.charAt(0);
@@ -77,10 +77,9 @@ function getFirstLetter(name: string): string {
 onMounted(() => {
   /* c8 ignore next 8 */
   const time = setInterval(() => {
-    const formatedDate = new Date(props.contact.createdAt).getTime() + 10000;
-    const difference = formatedDate - new Date().getTime();
+    const isNewContact = verifyIsNewContact(props.contact.createdAt);
 
-    if (difference < 0) {
+    if (!isNewContact) {
       isNew.value = false;
       clearInterval(time);
     }

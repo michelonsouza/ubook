@@ -15,3 +15,10 @@ export function generateRandomColor(): string {
 
   return color;
 }
+
+export function verifyIsNewContact(createdAt: string, limit = 10000): boolean {
+  const formatedDate = new Date(createdAt).getTime() + limit;
+  const difference = formatedDate - new Date().getTime();
+
+  return difference > 0;
+}
