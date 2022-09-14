@@ -1,5 +1,10 @@
 <template>
-  <transition name="fade">
+  <transition
+    name="fade"
+    :duration="250"
+    @after-enter="onAfterEnter"
+    @before-leave="onBeforeLeave"
+  >
     <div
       v-if="open"
       role="presentation"
@@ -7,26 +12,29 @@
       data-testid="modal-container"
       @click="modalClose"
     >
-      <div
-        class="modal-content-container"
-        data-testid="modal-content-container"
-      >
-        <slot v-if="showHeader" name="header">
-          <header class="modal-header" data-testid="modal-header">
-            <h3 class="modal-title" data-testid="modal-title">{{ title }}</h3>
-          </header>
-        </slot>
-        <slot :open="open" />
-        <div v-if="showFooter" data-testid="modalfooter" class="modal-footer">
-          <slot name="footer" />
+      <transition name="slide">
+        <div
+          v-if="showContent"
+          class="modal-content-container"
+          data-testid="modal-content-container"
+        >
+          <slot v-if="showHeader" name="header">
+            <header class="modal-header" data-testid="modal-header">
+              <h3 class="modal-title" data-testid="modal-title">{{ title }}</h3>
+            </header>
+          </slot>
+          <slot :open="open" />
+          <div v-if="showFooter" data-testid="modalfooter" class="modal-footer">
+            <slot name="footer" />
+          </div>
         </div>
-      </div>
+      </transition>
     </div>
   </transition>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, computed, useSlots } from 'vue';
+import { onMounted, onBeforeUnmount, computed, useSlots, ref } from 'vue';
 
 export interface ClickEvent extends MouseEvent {
   target: HTMLElement;
@@ -46,6 +54,7 @@ const slots = useSlots();
 const props = defineProps<ModalProps>();
 const emit = defineEmits<EmitsType>();
 
+const showContent = ref<boolean>(false);
 const showFooter = computed(() => !!slots?.footer);
 const showHeader = computed(() => !!props?.title);
 
@@ -59,6 +68,14 @@ function closeOnEsc(event: KeyboardEvent): void {
   if (event.key === 'Escape') {
     emit('close');
   }
+}
+
+function onAfterEnter(): void {
+  showContent.value = true;
+}
+
+function onBeforeLeave(): void {
+  showContent.value = false;
 }
 
 onMounted(() => {
@@ -126,11 +143,22 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s ease;
+  transition: all 0.25s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.25s ease;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  transform: translateY(50px);
   opacity: 0;
 }
 </style>
