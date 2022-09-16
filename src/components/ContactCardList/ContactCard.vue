@@ -22,7 +22,12 @@
         data-testid="edit-action"
         @click="$emit('edit-contact')"
       >
-        <img src="@/assets/icons/ic-edit.svg" alt="Edit Icon" />
+        <img
+          v-if="theme === 'dark'"
+          src="@/assets/icons/ic-edit-for-dark.svg"
+          alt="Edit Icon"
+        />
+        <img v-else src="@/assets/icons/ic-edit.svg" alt="Edit Icon" />
       </button>
       <button
         class="action-button"
@@ -32,15 +37,21 @@
         data-testid="delete-action"
         @click="$emit('delete-contact')"
       >
-        <img src="@/assets/icons/ic-delete.svg" alt="Delete Icon" />
+        <img
+          v-if="theme === 'dark'"
+          src="@/assets/icons/ic-delete-for-dark.svg"
+          alt="Delete Icon"
+        />
+        <img v-else src="@/assets/icons/ic-delete.svg" alt="Delete Icon" />
       </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 
+import { GlobalStateType } from '@/contexts/UserSharedPreferences.vue';
 import { Contact } from '@/models';
 import { formatPhoneNumberMask, verifyIsNewContact } from '@/utils';
 
@@ -52,6 +63,8 @@ type EmitType = {
   (event: 'edit-contact'): void;
   (event: 'delete-contact'): void;
 };
+
+const { theme } = inject<GlobalStateType>('global-state') || {};
 
 const props = defineProps<ContactCardProps>();
 defineEmits<EmitType>();
@@ -90,8 +103,8 @@ export default {
   width: 100%;
   min-height: 5.625rem;
   gap: 1rem;
-  border: 1px solid var(--white);
-  background-color: var(--white-two);
+  border: 1px solid var(--border-color);
+  background-color: var(--paper-color);
   transition: background-color 150ms ease;
 
   &:hover,
@@ -118,7 +131,8 @@ export default {
 .info-container {
   display: flex;
   flex-direction: column;
-  color: var(--dark);
+  // color: var(--dark);
+  color: inherit;
   font-size: 1rem;
   flex: 1;
   white-space: nowrap;
@@ -141,15 +155,16 @@ export default {
 .action-button {
   border: 0;
   background-color: transparent;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.8rem;
+  height: 1.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: inherit;
 
   & > img {
-    width: 1rem;
-    height: 1rem;
+    width: 1.3rem;
+    height: 1.3rem;
   }
 }
 </style>

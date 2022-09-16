@@ -44,9 +44,9 @@ export default {
 
 <style scoped lang="scss">
 .table-wrapper {
-  border: 1px solid var(--white);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  background-color: var(--white-two);
+  background-color: var(--paper-color);
 }
 .table-container {
   border-radius: 4px;
@@ -58,7 +58,7 @@ export default {
   transition: background-color 150ms ease;
 
   & > th {
-    border-bottom: 1px solid var(--white);
+    border-bottom: 1px solid var(--border-color);
     text-align: left;
     padding: 0 0.5rem;
     color: var(--bluey-grey);
@@ -67,5 +67,9 @@ export default {
       padding-left: 3rem;
     }
   }
+}
+
+:root.dark .table-row.table-head > th {
+  color: var(--white);
 }
 </style>

@@ -33,7 +33,12 @@
           data-testid="edit-action"
           @click="$emit('edit-contact')"
         >
-          <img src="@/assets/icons/ic-edit.svg" alt="Edit Icon" />
+          <img
+            v-if="theme === 'dark'"
+            src="@/assets/icons/ic-edit-for-dark.svg"
+            alt="Edit Icon"
+          />
+          <img v-else src="@/assets/icons/ic-edit.svg" alt="Edit Icon" />
         </button>
         <button
           class="action-button"
@@ -43,7 +48,12 @@
           data-testid="delete-action"
           @click="$emit('delete-contact')"
         >
-          <img src="@/assets/icons/ic-delete.svg" alt="Delete Icon" />
+          <img
+            v-if="theme === 'dark'"
+            src="@/assets/icons/ic-delete-for-dark.svg"
+            alt="Delete Icon"
+          />
+          <img v-else src="@/assets/icons/ic-delete.svg" alt="Delete Icon" />
         </button>
       </div>
     </td>
@@ -51,8 +61,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, inject } from 'vue';
 
+import { GlobalStateType } from '@/contexts/UserSharedPreferences.vue';
 import { Contact } from '@/models';
 import { formatPhoneNumberMask, verifyIsNewContact } from '@/utils';
 
@@ -64,6 +75,8 @@ type EmitType = {
   (event: 'edit-contact'): void;
   (event: 'delete-contact'): void;
 };
+
+const { theme } = inject<GlobalStateType>('global-state') || {};
 
 const props = defineProps<TableRowProps>();
 defineEmits<EmitType>();
@@ -97,7 +110,8 @@ export default {
 .table-row {
   height: 2.5rem;
   transition: background-color 150ms ease;
-  border-top: 1px solid var(--white);
+  border-top: 1px solid var(--border-color);
+  color: inherit;
 
   &:hover,
   &.is-new {
@@ -107,6 +121,7 @@ export default {
   & > td {
     height: 2.5rem;
     padding: 0 0.5rem;
+    color: inherit;
 
     &.action {
       text-align: right;

@@ -1,45 +1,48 @@
 <template>
-  <contact-form-modal
-    :open="contactModalIsOpen"
-    :default-values="selectedContactToAction"
-    @close="closeContactModal"
-    @submit-form="handleCreateContact"
-  />
-  <delete-contact-modal
-    :open="deleteContactModalIsOpen"
-    :contact="selectedContactToAction"
-    @close="closeDeleteContactModal"
-    @delete-contact="handleDeleteContact"
-  />
-  <app-header
-    :show-create-button="!!contacts.length"
-    :value="searchText"
-    @create-contact="openContactModal"
-    @input="handleSearch"
-  />
-  <div class="content-container">
-    <transition name="fade-content" mode="out-in">
-      <no-content
-        v-if="!computedContacts.length"
-        :has-old-values="!!contacts.length"
-        @create-contact="openContactModal"
-      />
-      <contact-table
-        v-else-if="!!computedContacts.length && !isMobile"
-        class="desktop-data-list"
-        :value="computedContacts"
-        @edit-contact="data => handleSelectToAction('edit', data)"
-        @delete-contact="data => handleSelectToAction('delete', data)"
-      />
-      <contact-card-list
-        v-else-if="!!computedContacts.length && isMobile"
-        :value="computedContacts"
-        class="mobile-data-list"
-        @edit-contact="data => handleSelectToAction('edit', data)"
-        @delete-contact="data => handleSelectToAction('delete', data)"
-      />
-    </transition>
-  </div>
+  <user-shared-preferences>
+    <switch-button v-if="showToggleTheme" />
+    <contact-form-modal
+      :open="contactModalIsOpen"
+      :default-values="selectedContactToAction"
+      @close="closeContactModal"
+      @submit-form="handleCreateContact"
+    />
+    <delete-contact-modal
+      :open="deleteContactModalIsOpen"
+      :contact="selectedContactToAction"
+      @close="closeDeleteContactModal"
+      @delete-contact="handleDeleteContact"
+    />
+    <app-header
+      :show-create-button="!!contacts.length"
+      :value="searchText"
+      @create-contact="openContactModal"
+      @input="handleSearch"
+    />
+    <div class="content-container">
+      <transition name="fade-content" mode="out-in">
+        <no-content
+          v-if="!computedContacts.length"
+          :has-old-values="!!contacts.length"
+          @create-contact="openContactModal"
+        />
+        <contact-table
+          v-else-if="!!computedContacts.length && !isMobile"
+          class="desktop-data-list"
+          :value="computedContacts"
+          @edit-contact="data => handleSelectToAction('edit', data)"
+          @delete-contact="data => handleSelectToAction('delete', data)"
+        />
+        <contact-card-list
+          v-else-if="!!computedContacts.length && isMobile"
+          :value="computedContacts"
+          class="mobile-data-list"
+          @edit-contact="data => handleSelectToAction('edit', data)"
+          @delete-contact="data => handleSelectToAction('delete', data)"
+        />
+      </transition>
+    </div>
+  </user-shared-preferences>
 </template>
 
 <script setup lang="ts">
@@ -52,7 +55,9 @@ import {
   DeleteContactModal,
   ContactTable,
   ContactCardList,
+  SwitchButton,
 } from '@/components';
+import UserSharedPreferences from '@/contexts/UserSharedPreferences.vue';
 import { Contact } from '@/models';
 import { encryptStorage } from '@/utils';
 
@@ -67,6 +72,11 @@ const contacts = ref<Contact[]>(oldContacts);
 const searchText = ref<string>('');
 const selectedContactToAction = ref<Contact | undefined>();
 const isMobile = ref<boolean>(window.innerWidth < 768);
+const showToggleThemeExists = localStorage.getItem(
+  'user-shared-preferences:toggle-theme',
+);
+
+const showToggleTheme = computed(() => showToggleThemeExists === 'true');
 
 function getWindoWidth(event: any): void {
   const width = event.target.innerWidth;

@@ -196,11 +196,12 @@ export default {
 
   & > input {
     border-radius: 4px;
-    border: solid 1px #c0c3d2;
-    background-color: var(--white-two);
+    border: solid 1px var(--border-color);
+    background-color: var(--paper-color);
     height: 2rem;
     caret-color: var(--bluey-grey);
-    color: var(--dark);
+    //color: var(--dark);
+    color: inherit;
     padding-left: 0.5rem;
   }
 

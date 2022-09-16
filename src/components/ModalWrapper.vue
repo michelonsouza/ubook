@@ -115,7 +115,7 @@ export default {
   padding: 1rem 0;
   border-radius: 16px;
   box-shadow: 0 16px 10px 0 var(--black-8-16);
-  background-color: var(--white-two);
+  background-color: var(--paper-color);
   display: flex;
   flex-direction: column;
 }
@@ -136,7 +136,7 @@ export default {
 
 .modal-title {
   font-size: 1rem;
-  color: var(--dark);
+  color: inherit;
   font-weight: 400;
   margin: 0;
 }

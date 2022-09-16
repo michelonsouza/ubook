@@ -7,3 +7,4 @@ export { default as DeleteContactModal } from './DeleteContactModal.vue';
 export { default as ModalWrapper } from './ModalWrapper.vue';
 export { default as NoContent } from './NoContent.vue';
 export { default as SearchTextInput } from './SearchTextInput.vue';
+export { default as SwitchButton } from './SwitchButton.vue';

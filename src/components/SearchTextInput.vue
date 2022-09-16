@@ -15,6 +15,14 @@
       @click="handleSearch"
     >
       <img
+        v-if="theme === 'dark'"
+        data-testid="search-icon"
+        src="@/assets/icons/ic-search-for-dark.svg"
+        alt="Search Icon"
+        class="search-icon"
+      />
+      <img
+        v-else
         data-testid="search-icon"
         src="@/assets/icons/ic-search.svg"
         alt="Search Icon"
@@ -25,7 +33,9 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, ref, withDefaults } from 'vue';
+import { Ref, ref, withDefaults, inject } from 'vue';
+
+import { GlobalStateType } from '@/contexts/UserSharedPreferences.vue';
 
 export interface TextInputProps {
   clearAfterSearch?: boolean;
@@ -34,6 +44,8 @@ export interface TextInputProps {
   value?: string;
 }
 export type SearchEmitType = { (event: 'search', value?: string): void };
+
+const { theme } = inject<GlobalStateType>('global-state') || {};
 
 const props = withDefaults(defineProps<TextInputProps>(), {
   clearAfterSearch: false,
@@ -98,14 +110,14 @@ export default {
   height: 2rem;
   background: transparent;
   padding: 0.438rem 0.5rem 0.375rem;
-  caret-color: var(--bluey-grey);
-  color: var(--bluey-grey);
-  background-color: var(--pale-grey);
+  caret-color: var(--search-carret-color);
+  color: var(--search-color);
+  background-color: var(--search-background-color);
   border-radius: 4px;
   outline: 0;
 
   &::placeholder {
-    color: var(--bluey-grey);
+    color: var(--search-color);
   }
 }
 
