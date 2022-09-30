@@ -90,7 +90,6 @@ const showToggleThemeExists = localStorage.getItem(
 const showToggleTheme = computed(() => showToggleThemeExists === 'true');
 
 function handleChangeOrder(newOrder: OrderType): void {
-  console.log({ newOrder });
   order.value = newOrder;
 }
 
@@ -128,8 +127,6 @@ const computedContacts = computed(() => {
       if (!valueA || !valueB) {
         return 0;
       }
-
-      console.log({ valueA, valueB, order: order.value });
 
       return valueA.localeCompare(valueB);
     });
