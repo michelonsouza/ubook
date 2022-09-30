@@ -89,7 +89,7 @@ const showToggleThemeExists = localStorage.getItem(
 
 const showToggleTheme = computed(() => showToggleThemeExists === 'true');
 
-function handleChangeOrder(newOrder: OrderType): void {
+function handleChangeOrder(newOrder?: OrderType): void {
   order.value = newOrder;
 }
 
