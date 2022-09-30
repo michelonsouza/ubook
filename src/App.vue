@@ -180,6 +180,7 @@ function handleSearch(event: Event): void {
 
 onMounted(() => {
   window.addEventListener('resize', getWindoWidth);
+  localStorage.setItem('user-shared-preferences:toggle-theme', 'true');
 });
 
 onUnmounted(() => {
