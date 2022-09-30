@@ -30,8 +30,10 @@
           v-else-if="!!computedContacts.length && !isMobile"
           class="desktop-data-list"
           :value="computedContacts"
+          :order="order"
           @edit-contact="data => handleSelectToAction('edit', data)"
           @delete-contact="data => handleSelectToAction('delete', data)"
+          @order="handleChangeOrder"
         />
         <contact-card-list
           v-else-if="!!computedContacts.length && isMobile"
@@ -65,6 +67,15 @@ export interface SearchTextInputEvent extends Event {
   target: HTMLInputElement;
 }
 
+type Order = 'asc' | 'desc';
+type ContactOrderkeys = 'name' | 'email' | 'phone';
+
+interface OrderType {
+  key: ContactOrderkeys;
+  order: Order;
+}
+
+const order = ref<OrderType | undefined>(undefined);
 const oldContacts = encryptStorage.getItem<Contact[]>('contacts') || [];
 const contactModalIsOpen = ref<boolean>(false);
 const deleteContactModalIsOpen = ref<boolean>(false);
@@ -78,6 +89,11 @@ const showToggleThemeExists = localStorage.getItem(
 
 const showToggleTheme = computed(() => showToggleThemeExists === 'true');
 
+function handleChangeOrder(newOrder: OrderType): void {
+  console.log({ newOrder });
+  order.value = newOrder;
+}
+
 function getWindoWidth(event: any): void {
   const width = event.target.innerWidth;
 
@@ -85,11 +101,11 @@ function getWindoWidth(event: any): void {
 }
 
 const computedContacts = computed(() => {
-  if (!searchText.value) {
+  if (!searchText.value && !order.value) {
     return contacts.value;
   }
 
-  return contacts.value.filter(contact => {
+  let filteredContacts = contacts.value.filter(contact => {
     const nameExists = contact?.name
       ?.toLowerCase()
       ?.includes(searchText.value.toLowerCase());
@@ -102,6 +118,28 @@ const computedContacts = computed(() => {
 
     return nameExists || emailExists || phoneExists;
   });
+
+  if (order.value?.key) {
+    const parsedKey = order.value?.key as ContactOrderkeys;
+    filteredContacts = filteredContacts.sort((contactA, contactB) => {
+      const valueA = contactA[parsedKey] as string;
+      const valueB = contactB[parsedKey] as string;
+
+      if (!valueA || !valueB) {
+        return 0;
+      }
+
+      console.log({ valueA, valueB, order: order.value });
+
+      return valueA.localeCompare(valueB);
+    });
+
+    if (order.value?.order === 'desc') {
+      filteredContacts = filteredContacts.reverse();
+    }
+  }
+
+  return filteredContacts;
 });
 
 function openContactModal() {
